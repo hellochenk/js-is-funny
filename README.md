@@ -1,2 +1,2 @@
 # redux-is-funny
-let's study redux!
+let's study react redux node koa!
