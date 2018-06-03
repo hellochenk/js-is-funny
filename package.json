@@ -1,0 +1,31 @@
+{
+  "name": "redux-is-funny",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node ./config/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hellochenk/redux-is-funny.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hellochenk/redux-is-funny/issues"
+  },
+  "homepage": "https://github.com/hellochenk/redux-is-funny#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.10.2"
+  },
+  "dependencies": {
+    "koa": "^2.5.1"
+  }
+}
