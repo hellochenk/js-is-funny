@@ -26,6 +26,12 @@
     "webpack": "^4.10.2"
   },
   "dependencies": {
-    "koa": "^2.5.1"
+    "css-loader": "^0.28.11",
+    "koa": "^2.5.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "style-loader": "^0.21.0"
   }
 }
