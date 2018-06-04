@@ -10,6 +10,6 @@ const home = async (ctx, next)=>{
 
 app.use(home);
 
-// 在端口3000监听:
+// 在端口port监听:
 app.listen(port);
 console.log(`app started at port ${port}...`);
