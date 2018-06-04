@@ -1,37 +1,47 @@
 {
-  "name": "redux-is-funny",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node ./config/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hellochenk/redux-is-funny.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hellochenk/redux-is-funny/issues"
-  },
-  "homepage": "https://github.com/hellochenk/redux-is-funny#readme",
-  "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "webpack": "^4.10.2"
-  },
-  "dependencies": {
-    "css-loader": "^0.28.11",
-    "koa": "^2.5.1",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
-    "style-loader": "^0.21.0"
-  }
+    "name": "redux-is-funny",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "server": "node ./config/server.js",
+        "start": "webpack-dev-server --inline"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hellochenk/redux-is-funny.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/hellochenk/redux-is-funny/issues"
+    },
+    "homepage": "https://github.com/hellochenk/redux-is-funny#readme",
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^7.1.4",
+        "babel-plugin-transform-async-to-generator": "^6.24.1",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
+        "webpack": "^4.10.2",
+        "webpack-cli": "^3.0.1"
+    },
+    "dependencies": {
+        "clean-webpack-plugin": "^0.1.19",
+        "css-loader": "^0.28.11",
+        "file-loader": "^1.1.11",
+        "html-webpack-plugin": "^3.2.0",
+        "jshint": "^2.9.5",
+        "koa": "^2.5.1",
+        "react": "^16.4.0",
+        "react-dom": "^16.4.0",
+        "react-redux": "^5.0.7",
+        "redux": "^4.0.0",
+        "style-loader": "^0.21.0",
+        "uglifyjs-webpack-plugin": "^1.2.5",
+        "webpack-dev-server": "^3.1.4"
+    }
 }

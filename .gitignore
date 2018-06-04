@@ -1,0 +1,8 @@
+# Windows:
+
+# js:
+dist
+build
+
+# My configurations:
+node_modules
