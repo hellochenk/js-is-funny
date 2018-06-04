@@ -7,6 +7,6 @@ app.use(async(ctx, next) => {
     ctx.response.type = 'text/html';
     ctx.response.body = '<h1>Hello, koa2!</h1>';
 });
-// 在端口3000监听:
+
 app.listen(port);
 console.log(`app started at port ${port}...`);
