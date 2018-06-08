@@ -8,7 +8,7 @@ import styles from './styles/style.css'
 let testPost = (param)=>{
     return new Promise((res,rej)=>{
         $.ajax({
-            url:'http://localhost:8009/haha',
+            url:'http://localhost:8881/haha',
             data:JSON.stringify(param),
             dataType:'json',
             method:'POST',
