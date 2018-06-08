@@ -4,10 +4,12 @@ const prot = 8010;
 // import config from './routers/config'
 // import routers from './routers/index'
 
-module.exports = InitApp = async ()=>{
-  const app = new Koa();
+InitApp = async ()=>{
+  // const app = new Koa();
 
-  app.listen(port)
+  // app.listen(port)
   
 
 }
+
+export default InitApp;

@@ -7,7 +7,9 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     mode: "development",
     entry: {
+        candy:'./src/client/candy.js',
         app: './src/client/index.jsx'
+        // vendor: ['babel-polyfill']
     },
     plugins: [
         new UglifyJSPlugin(),
@@ -22,15 +24,19 @@ module.exports = {
     ],
     devtool: 'inline-source-map',
     output: {
-        filename: 'bundle.js',
+        filename: '[name],bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/'
+        publicPath: '/',
+        chunkFilename: '[name].bundle.js',
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
         hot: true,
-        port: 9990
+        port: 9990,
+        // proxy: {
+        //   "/haha": "http://192.168.0.105:8009"
+        // }
     },
     module: {
         rules: [{
