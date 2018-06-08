@@ -1,42 +1,40 @@
-const Koa = require('koa');
-const _ = require('koa-route');
-const app = new Koa();
+var Koa = require('koa');
+var Router = require('koa-router');
+ 
+var app = new Koa();
+var router = new Router();
+const useragent = require('useragent');
+
 const port = 8008;
-const fs = require('fs')
 
-const db = {
-  tobi: { name: 'tobi', species: 'ferret1' },
-  loki: { name: 'loki', species: 'ferret2' },
-  jane: { name: 'jane', species: 'ferret3' }
-};
-
-const pets = {
-  list: (ctx) => {
-    const names = Object.keys(db);
-    ctx.body = 'pets: ' + names.join(', ');
-  },
-
-  show: (ctx, name) => {
-    const pet = db[name];
-    if (!pet) return ctx.throw('cannot find that pet', 404);
-    ctx.body = pet.name + ' is a ' + pet.species;
-  }
-};
-
-app.use(_.get('/pets', pets.list));
-app.use(_.get('/pets/:name', pets.show));
-
-const home = async (ctx, next) => {
-    await next();
-    ctx.response.type = 'text/html';
-    ctx.response.body = '<h2>Hello, koa2!</h2>';
+const home = async ctx => {
+    let agent = ctx.request.headers['user-agent']
+    let user = useragent.parse(agent);
+    let ismobile = (/Mobile/g).test(user.family);
+    console.log('user:',user)
+    if(ismobile){
+      ctx.response.type = 'text/html';
+      ctx.response.body = '<h2>Hello, koa2!,request from mobile</h2>';
+    }else{
+      ctx.response.type = 'text/html';
+      ctx.response.body = '<h2>Hello, koa2!,request from pc</h2>';
+    }
 }
 
+const index = async ctx=>{
+  ctx.response.type = 'text/html';
+  ctx.response.body = '<p>hello index,</p>'
+}
 
-// app.use(date);
-// app.use(logger);
-app.use(home);
-// 在端口port监听:
+router.get('/',home)
+router.get('/index',index)
 
-app.listen(port);
-console.log(`app started at port ${port}...`);
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
+
+app.listen(port,()=>{
+  console.log(`app started at port ${port}...`);
+
+});
+

@@ -43,8 +43,11 @@
         "react-dom": "^16.4.0",
         "react-redux": "^5.0.7",
         "redux": "^4.0.0",
+        "request": "^2.999.1",
         "style-loader": "^0.21.0",
         "uglifyjs-webpack-plugin": "^1.2.5",
-        "webpack-dev-server": "^3.1.4"
+        "useragent": "^2.3.0",
+        "webpack-dev-server": "^3.1.4",
+        "yamlparser": "0.0.2"
     }
 }
