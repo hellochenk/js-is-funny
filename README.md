@@ -1,4 +1,4 @@
-# redux-is-funny
+# js-is-funny
 let's study react redux node koa
 
 ### 启动服务
