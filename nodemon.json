@@ -12,6 +12,7 @@
     "events": {
         "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
     },
+    "exec": "./node_modules/.bin/ts-node ./src/server/app.ts",
     "watch": [
         "src/server",
         "src/client"

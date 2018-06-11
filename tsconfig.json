@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "outDir": "./dist/server",
+    "target": "es2017",
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    // "noImplicitReturns": true,
+    // "declaration": true,
+    "watch": false,
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "@types/*"
+      ]
+    }
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "v8-compile-cache-0"
+  ]
+}
