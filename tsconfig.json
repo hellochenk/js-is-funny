@@ -7,7 +7,7 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "outDir": "./dist/server",
+    "outDir": "./dist/server/",
     "target": "es2017",
     "experimentalDecorators": true,
     "removeComments": true,
