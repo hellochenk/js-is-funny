@@ -1,19 +1,18 @@
 import path = require('path');
 
-interface dbtype{
-  host:string
-  cookieTime(): number
-  server_port:number
-  db_host:string
-  db_port:number
-  db_database:string
-  db_user:string
-  db_pwd:string
-}
+// interface dbtype{
+//   host:string
+//   cookieTime(): number
+//   server_port:number
+//   db_host:string
+//   db_port:number
+//   db_database:string
+//   root_path:string
+//   db_user:string
+//   db_pwd:string
+// }
 
 class Config{
-
-  static host = 'localhost'
 
   static cookieTime = ():number=>{
     return 1000*60*120
@@ -34,4 +33,4 @@ class Config{
   static db_pwd = '123456';
 }
 
-export {Config}
+export { Config }
