@@ -15,10 +15,10 @@ import styles from './styles/style.css'
 let testPost = (param)=>{
     return new Promise((res,rej)=>{
         $.ajax({
-            url:'http://localhost:8881/haha',
+            url:'http://localhost:9990/',
             data:JSON.stringify(param),
             dataType:'json',
-            method:'POST',
+            method:'GET',
             success:(resp)=>{
                 res(resp);
             },
@@ -53,7 +53,7 @@ class Container extends React.Component {
           <div style={{ width: 400, margin: '100px auto' }}>
             <DatePicker onChange={value => this.handleChange(value)} />
             <div style={{ marginTop: 20 }}>当前日期：{this.state.date && this.state.date.toString()}</div>
-            <Button size={size} icon="search" type="primary">Primary</Button>
+            <Button  size={size} icon="search" type="primary">Primary</Button>
           </div>
         </LocaleProvider>
         <Radio.Group value={size} onChange={this.handleSizeChange}>
@@ -61,6 +61,10 @@ class Container extends React.Component {
           <Radio.Button value="default">Default</Radio.Button>
           <Radio.Button value="small">Small</Radio.Button>
         </Radio.Group>
+
+        <Button onClick={()=>{testPost({name:'chenk'})}} type='primary'>
+          sbumit
+        </Button>
       </div>
     );
   }
