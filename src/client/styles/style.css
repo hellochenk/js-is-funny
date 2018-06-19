@@ -5,19 +5,21 @@ html,body{
 }
 
 #root{
-  height: 100%;
-  /* background-color: blueviolet; */
+  height: 100vh;
+  max-width: 100%;
+  overflow-y: scroll
 }
 
 .container{
-  /* height: 100%; */
+  width: 90%;
+  margin: 0 auto;
 }
-.cc1{
+/* .cc1{
   height: 2vh;
   background-color: brown
-}
+} */
 
-.cc2{
+/* .cc2{
   height: 2vh;
   background-color: chartreuse;
-}
+} */
