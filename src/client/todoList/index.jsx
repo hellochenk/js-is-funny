@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Input, List, Modal } from 'antd';
 const Search = Input.Search;
 import zhCN from 'antd/lib/locale-provider/zh_CN';
@@ -7,18 +6,12 @@ import zhCN from 'antd/lib/locale-provider/zh_CN';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
-import styles from './styles/style.css'
+import styles from './style.css'
 
-import { BaseService } from './service/service'
+import { BaseService } from '../service/service'
 const service = new BaseService()
 
-import { createStore } from 'redux'
-import app from './reducers'
-const store = createStore(app)
-
-console.log('store....', store.getState())
-
-class Container extends React.Component {
+export class Container extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -107,6 +100,3 @@ class Container extends React.Component {
     );
   }
 }
-
-const dom = document.getElementById('root')
-ReactDOM.render( <Container / > , dom);
