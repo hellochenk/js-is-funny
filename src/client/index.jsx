@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Input, List } from 'antd';
+import { Input, List, Modal } from 'antd';
 const Search = Input.Search;
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 
@@ -16,7 +16,10 @@ class Container extends React.Component {
   constructor(props) {
     super(props);
   }
-  state = {}
+  state = {
+    visible:false,
+    item:''
+  }
 
   componentWillMount(){
     this.getTodo()
@@ -24,7 +27,7 @@ class Container extends React.Component {
   
   getTodo = async () => {
     let resp = await service.request('search')
-
+    console.log(resp)
     if(resp && resp.status === '0'){
       this.setState({
         list: resp.data
@@ -36,13 +39,36 @@ class Container extends React.Component {
     let data = {
       text: val
     }
-    let resp = await service.request('addtodo', data)
+    await service.request('addtodo', data)
+    await this.getTodo()
     // console.log('resp', resp)
-    if(resp && resp.status === '0'){
+  }
+
+  deleteTodo = async (item) => {
+    console.log(item)
+    this.setState({
+      visible: true,
+      item: item
+    })
+  }
+
+  handleOk = async () => {
+    console.log('submit')
+    let resp = await service.request('deltodo', {id: this.state.item.id})
+    // todo
+    if(resp.status === '0'){
       this.setState({
-        list:[...this.state.list,data] 
+        visible: false
+      },()=>{
+        this.getTodo()
       })
     }
+  }
+
+  handleCancel = () => {
+    this.setState({
+      visible: false
+    })
   }
 
   render() {
@@ -51,19 +77,26 @@ class Container extends React.Component {
       <div>
         <Search
           placeholder="add todo list"
-          enterButton="plus"
-          size="large"
+          enterButton="add"
           onSearch={(val) => {this.addTodo(val)}}
         />
         <List
           size="large"
           dataSource={list}
           renderItem={item => (
-            <List.Item>
+            <List.Item onClick={()=>{this.deleteTodo(item)}}>
               <p className='item'>{item.text}</p>
             </List.Item>
           )}
         />
+        <Modal
+          title="warning!"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <p>{`确认删除 ${this.state.item.text} ?`}</p>
+        </Modal>
       </div>
     );
   }

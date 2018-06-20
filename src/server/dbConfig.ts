@@ -1,36 +1,36 @@
-import path = require('path');
+import * as Sequelize from 'sequelize'
 
-// interface dbtype{
-//   host:string
-//   cookieTime(): number
-//   server_port:number
-//   db_host:string
-//   db_port:number
-//   db_database:string
-//   root_path:string
-//   db_user:string
-//   db_pwd:string
-// }
+let db:any = {};
 
-class Config{
+const initDb = async () => {
+  let sequelize = await new Sequelize('mydb', 'root', '123456', {
+    host: 'localhost',
+    dialect: 'mysql',
+    pool: {
+      max: 50,
+      min: 0,
+      idle: 10000
+    },
+    storage: 'path/to/database.sqlite'
+  });
 
-  static cookieTime = ():number=>{
-    return 1000*60*120
-  };//cookie过期时间
+  let List = await sequelize.define('todo_list', {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    text: Sequelize.STRING(100),
+    type: Sequelize.STRING(100)
+  })
 
-  static server_port =  3000; //服务器端口
+  sequelize.sync()
 
-  static db_host = 'localhost';//数据库服务器ip
-
-  static db_port = 1433; //数据库端口
-
-  static db_database = 'database'; //数据库名
-
-  // root_path: __dirname; //项目根绝对路径
-
-  static db_user = 'root';
-
-  static db_pwd = '123456';
+  db =  { sequelize, List };
 }
 
-export { Config }
+initDb()
+
+export function getDb() {
+  return db
+}

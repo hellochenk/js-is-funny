@@ -6,8 +6,10 @@ class BaseService {
       $.ajax({
         url: `http://localhost:9990/api/${url}`,
         dataType: 'json',
+        contentType: "application/json",
         data: JSON.stringify(param),
         method:'POST',
+        
         success: (resp) => {
           // console.log(resp)
           res(resp)

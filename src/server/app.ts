@@ -2,84 +2,55 @@ import * as Koa from 'koa'
 import * as Router from 'koa-router'
 import * as logger from 'koa-logger'
 import * as cors from 'koa2-cors'
-// var cors = require('koa2-cors');
-// import * as Sequelize from 'sequelize'
-// import { Config } from './dbConfig'
+import * as bodyparser from 'koa-bodyparser'
+import { readdirSync, readFileSync } from 'fs';
+import * as path from 'path'
+import { getDb} from './dbConfig'
+
 const port:number = 9990;
-// console.log(Config.cookieTime())
 const app = new Koa();
 const router = new Router();
 const posts = new Router();
 
-// var sequelize = new Sequelize('mydb', 'root', '123456', {
-//   host: 'localhost',
-//   dialect: 'mysql',
-//   pool: {
-//     max: 50,
-//     min: 0,
-//     idle: 10000
-//   },
-//   storage: 'path/to/database.sqlite'
-// });
-
-// const User = sequelize.define('user2', {
-//   firstName: {
-//     type: Sequelize.STRING
-//   },
-//   lastName: {
-//     type: Sequelize.STRING
-//   }
-// });
-// force: true will drop the table if it already exists
-// User.sync({force: true}).then(() => {
-//   // Table created
-//   return User.create({
-//     firstName: 'chenkang',
-//     lastName: 'wuhan'
-//   });
-// });
-// User.findAll().then(users => {
-//   console.log(users)
-// })
-
-// router.get('/',(ctx:any, next:any)=>{
-//   if (ctx.request.accepts('xml')) {
-//     ctx.response.type = 'xml';
-//     ctx.response.body = '<data>Hello World</data>';
-//   } else if (ctx.request.accepts('json')) {
-//     ctx.response.type = 'json';
-//     ctx.response.body = { data: 'Hello World' };
-//   } else if (ctx.request.accepts('html')) {
-//     ctx.response.type = 'html';
-//     ctx.response.body = '<p>Hello World</p>';
-//   } else {
-//     ctx.response.type = 'text';
-//     ctx.response.body = 'Hello World';
-//   }
-// })
-
-posts.post('/addtodo', (ctx, next) => {
-  console.log('this is addtodo')
+posts.post('/addtodo',async (ctx, next) => {
+  const db = getDb()
+  let { text } = ctx.request.body
+  await db.List.create({
+    text: text,
+    type: '0'
+  })
   ctx.response.body = JSON.stringify({status:'0'})
 });
-posts.post('/search', (ctx, next) => {
+
+posts.post('/search',async (ctx, next) => {
   console.log('this is search todo')
-  let data = {
-    status:'0',
-    data:[
-      {text: 'todo todo todo 1'},
-      {text: 'todo todo todo 2'},
-      {text: 'todo todo todo 3'},
-      {text: 'todo todo todo 4'}
-    ]
+  const db = getDb()
+  let data = await db.List.findAll()
+  let resp = {
+    data,
+    status: '0'
   }
-  ctx.response.body = JSON.stringify(data)
+  ctx.response.body = JSON.stringify(resp)
 });
 
-router.use('/api', posts.routes(), posts.allowedMethods());
+posts.post('/deltodo',async (ctx, next) => {
+  let { id } = ctx.request.body
+  const db = getDb()
+  let resp = await db.List.destroy({
+    where: {
+      id: id
+    }
+  })
+  if(resp){
+    ctx.response.body = JSON.stringify({status: '0'})
+  }
+});
 
+
+router.use('/api', posts.routes(), posts.allowedMethods());
 app.use(cors())
 app.use(logger())
+app.use(bodyparser())
 app.use(router.routes())
   // .use(router.allowedMethods());
 

@@ -6,6 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "webpack-dev-server --inline",
+        "start-test": "webpack --watch",
         "server": "npm run build:live",
         "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/server/app.ts"
     },
@@ -40,6 +41,7 @@
     "dependencies": {
         "@koa/cors": "^2.2.1",
         "@types/koa": "^2.0.46",
+        "@types/koa-bodyparser": "^4.2.0",
         "@types/koa-logger": "^3.1.0",
         "@types/koa-router": "^7.0.28",
         "@types/koa2-cors": "^2.0.1",
