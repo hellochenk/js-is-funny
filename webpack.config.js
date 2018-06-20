@@ -7,7 +7,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
   mode: "development",
   entry: {
-    candy: './src/client/candy.js',
+    // candy: './src/client/candy.js',
     app: './src/client/index.jsx'
     // vendor: ['babel-polyfill']
   },
@@ -22,7 +22,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   output: {
     filename: '[name],bundle.js',
     path: path.resolve(__dirname, 'dist'),

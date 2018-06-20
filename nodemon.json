@@ -14,8 +14,7 @@
     },
     "exec": "./node_modules/.bin/ts-node ./src/server/app.ts",
     "watch": [
-        "src/server",
-        "src/client"
+        "src/server"
     ],
     "env": {
         "NODE_ENV": "development",
