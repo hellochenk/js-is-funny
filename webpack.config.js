@@ -33,10 +33,7 @@ module.exports = {
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     hot: true,
-    port: 9991,
-    // proxy: {
-    //   "/haha": "http://192.168.0.105:8009"
-    // }
+    port: 9991
   },
   module: {
     rules: [{

@@ -15,6 +15,7 @@ const posts = new Router();
 posts.post('/addtodo',async (ctx, next) => {
   const db = getDb()
   let { text } = ctx.request.body
+  console.log('111111111111111111',ctx.request.body)
   await db.List.create({
     text: text,
     type: '0'

@@ -27,7 +27,7 @@ class Container extends React.Component {
   
   getTodo = async () => {
     let resp = await service.request('search')
-    console.log(resp)
+    console.log('getTodo.........',resp)
     if(resp && resp.status === '0'){
       this.setState({
         list: resp.data
@@ -41,6 +41,7 @@ class Container extends React.Component {
     }
     await service.request('addtodo', data)
     await this.getTodo()
+    
     // console.log('resp', resp)
   }
 
@@ -81,7 +82,6 @@ class Container extends React.Component {
           onSearch={(val) => {this.addTodo(val)}}
         />
         <List
-          size="large"
           dataSource={list}
           renderItem={item => (
             <List.Item onClick={()=>{this.deleteTodo(item)}}>
