@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "NODE_ENV=development webpack-dev-server --inline",
+        "start": "cross-env NODE_ENV=development webpack-dev-server --inline",
         "start-test": "webpack --watch",
         "server": "npm run build:live",
         "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/server/app.ts"
@@ -55,6 +55,7 @@
         "babel-preset-stage-0": "^6.24.1",
         "babel-runtime": "^6.26.0",
         "clean-webpack-plugin": "^0.1.19",
+        "cross-env": "^5.2.0",
         "css-loader": "^0.28.11",
         "csx": "^9.0.0",
         "file-loader": "^1.1.11",
