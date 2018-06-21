@@ -39,12 +39,13 @@
     ]
   },
   "include": [
-    "./src/**/*"
+    "./src/server/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
     "public",
+    "./src/client",
     "v8-compile-cache-0"
   ]
 }

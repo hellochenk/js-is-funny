@@ -1,17 +1,16 @@
 import React from 'react';
 import { Input, List, Modal } from 'antd';
 const Search = Input.Search;
-import zhCN from 'antd/lib/locale-provider/zh_CN';
+// import zhCN from 'antd/lib/locale-provider/zh_CN';
+// import moment from 'moment';
+// import 'moment/locale/zh-cn';
+// moment.locale('zh-cn');
+import './todo.css'
 
-import moment from 'moment';
-import 'moment/locale/zh-cn';
-moment.locale('zh-cn');
-import styles from './style.css'
-
-import { BaseService } from '../service/service'
+import { BaseService } from '../../service/service'
 const service = new BaseService()
 
-export class Container extends React.Component {
+class TodoListComponent extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -26,7 +25,7 @@ export class Container extends React.Component {
   
   getTodo = async () => {
     let resp = await service.request('search')
-    console.log('getTodo.........',resp)
+    // console.log('getTodo.........',resp)
     if(resp && resp.status === '0'){
       this.setState({
         list: resp.data
@@ -38,14 +37,15 @@ export class Container extends React.Component {
     let data = {
       text: val
     }
+
     await service.request('addtodo', data)
     await this.getTodo()
-    
     // console.log('resp', resp)
   }
 
   deleteTodo = async (item) => {
     console.log(item)
+
     this.setState({
       visible: true,
       item: item
@@ -73,6 +73,7 @@ export class Container extends React.Component {
 
   render() {
     let { list } = this.state
+    console.log(this.props)
     return (
       <div>
         <Search
@@ -100,3 +101,5 @@ export class Container extends React.Component {
     );
   }
 }
+
+export default TodoListComponent

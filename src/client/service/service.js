@@ -10,7 +10,6 @@ class BaseService {
         data: param,
         method:'POST'
       }).then((resp)=>{
-        console.log('1111111111',resp)
         if(resp.status === 200){
           res(resp.data)
         }else{

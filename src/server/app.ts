@@ -15,7 +15,7 @@ const posts = new Router();
 posts.post('/addtodo',async (ctx, next) => {
   const db = getDb()
   let { text } = ctx.request.body
-  console.log('111111111111111111',ctx.request.body)
+  // console.log('111111111111111111',ctx.request.body)
   await db.List.create({
     text: text,
     type: '0'
@@ -24,9 +24,11 @@ posts.post('/addtodo',async (ctx, next) => {
 });
 
 posts.post('/search',async (ctx, next) => {
-  console.log('this is search todo')
+  // console.log('this is search todo')
   const db = getDb()
-  let data = await db.List.findAll()
+  let data = await db.List.findAll({
+    attributes: ['id', 'text', 'type']
+  })
   let resp = {
     data,
     status: '0'

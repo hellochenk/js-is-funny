@@ -1,4 +1,4 @@
-import { GET_TODO, ADD_DOTO, DEL_TODO } from './store/setting'
+import { GET_TODO, ADD_DOTO, DEL_TODO } from './setting'
 
 export const getlsit = () => {
   return {

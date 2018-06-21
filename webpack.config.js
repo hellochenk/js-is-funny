@@ -4,24 +4,42 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+let plugins = [
+  new CleanWebpackPlugin(['dist']),
+  new HtmlWebpackPlugin({
+    title: 'hello webpack',
+    template: './src/index.html'
+  }),
+  // new CommonsChunkPlugin({
+  //   name: "vendors",
+  // }),
+  new webpack.NamedModulesPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+  }),
+]
+if(process.env.NODE_ENV === 'production'){
+  console.log('-----NODE_ENV production model-----')
+  plugins.push(new UglifyJSPlugin())
+}else{
+  console.log('-----NODE_ENV development model-----')
+}
+
 module.exports = {
   mode: "development",
   entry: {
     // candy: './src/client/candy.js',
-    app: './src/client/index.jsx'
-    // vendor: ['babel-polyfill']
+    app: './src/client/index.jsx',
+    vendor: ['react', 'react-dom', 'redux', 'react-redux']
   },
-  plugins: [
-    new UglifyJSPlugin(),
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'hello webpack',
-      template: './src/index.html'
-    }),
-    // new HtmlWebpackPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  plugins:plugins,
+  // optimization: {
+  //   runtimeChunk: true,
+  //   splitChunks: {
+  //     chunks: 'all'
+  //   },
+  // },
   devtool: 'source-map',
   output: {
     filename: '[name].bundle.js',
