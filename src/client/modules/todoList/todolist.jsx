@@ -43,6 +43,7 @@ class TodoListComponent extends React.Component {
     }
     this.props.actions.addlist({text:'321312312'})
     await service.request('addtodo', data)
+    // await service.request('test')
     await this.getTodo()
     // console.log('resp', resp)
   }
@@ -79,6 +80,7 @@ class TodoListComponent extends React.Component {
     // console.log(this.props)
     return (
       <div>
+        
         <Search
           placeholder="add todo list"
           enterButton="add"

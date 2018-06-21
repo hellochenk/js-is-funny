@@ -11,6 +11,10 @@ import configureStore from './store/configureStore'
 
 const store = configureStore()
 
+// loadcomponent = () => {
+//   return import('./modules/todoList/todolist.jsx')
+// }
+
 class Container extends React.Component {
   constructor(props){
     super(props)
@@ -19,7 +23,7 @@ class Container extends React.Component {
     return (
       <Provider store={store}>
         <Router>
-          <Route path="/" component={TodoListComponent} />
+          <Route path="/todolist" component={TodoListComponent} />
         </Router>
       </Provider>
     )

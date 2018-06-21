@@ -24,9 +24,28 @@ const initDb = async () => {
     type: Sequelize.STRING(100)
   })
 
+  let Employee = sequelize.define('employee', {
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      get() {
+        const title = this.getDataValue('title');
+        // 'this' 允许你访问实例的属性
+        return this.getDataValue('name') + ' (' + title + ')';
+      },
+    },
+    title: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      set(val) {
+        this.setDataValue('title', val.toUpperCase());
+      }
+    }
+  });
+
   sequelize.sync()
 
-  db =  { sequelize, List };
+  db =  { sequelize, List, Employee };
 }
 
 initDb()

@@ -49,6 +49,17 @@ posts.post('/deltodo',async (ctx, next) => {
   }
 });
 
+posts.post('/test', async (ctx) => {
+  const db = getDb()
+  let resp = await db.Employee.create({
+    name:'chenk',
+    title:'haha'
+  })
+  if(resp){
+    console.log(resp);
+    ctx.response.body = { status: 'cuccess'}
+  }
+})
 
 router.use('/api', posts.routes(), posts.allowedMethods());
 app.use(cors())
