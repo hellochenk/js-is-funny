@@ -5,7 +5,9 @@ const todoList = (state=[],action) => {
   switch (action.type) {
     case GET_TODO:
       // console.log(action.data)
-      return action.data
+      return state
+    case ADD_DOTO:
+      return action.payload
     default:
       return state
   }

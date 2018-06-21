@@ -31,13 +31,14 @@ class TodoListComponent extends React.Component {
         list: resp.data
       })
     }
+    console.log(this.props.actions.getlist())
   }
 
   addTodo = async (val) => {
     let data = {
       text: val
     }
-
+    this.props.actions.addlist({text:'321312312'})
     await service.request('addtodo', data)
     await this.getTodo()
     // console.log('resp', resp)
@@ -73,7 +74,7 @@ class TodoListComponent extends React.Component {
 
   render() {
     let { list } = this.state
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         <Search

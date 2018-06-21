@@ -1,7 +1,10 @@
+import 'babel-polyfill'
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { bindActionCreators } from 'redux'
 import { Provider, connect } from 'react-redux'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import * as todo from './actions'
 
 import TodoListComponent from './modules/todoList/todolist.jsx'
@@ -14,7 +17,7 @@ const mapStateToProps = state => {
   for(let a in state){
     stas[a] = state[a]
   }
-  return stas
+  return {store:stas}
 }
 
 const mapDispatchToProps = dispatch => {
@@ -38,7 +41,9 @@ class Container extends React.Component {
   render(){
     return (
       <Provider store={store}>
-         <Node />
+        <Router>
+          <Route path="/" component={Node} />
+        </Router>
       </Provider>
     )
   }
