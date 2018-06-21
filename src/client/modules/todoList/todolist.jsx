@@ -1,5 +1,8 @@
 import React from 'react';
 import { Input, List, Modal } from 'antd';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as todo from './actions'
 const Search = Input.Search;
 // import zhCN from 'antd/lib/locale-provider/zh_CN';
 // import moment from 'moment';
@@ -31,7 +34,7 @@ class TodoListComponent extends React.Component {
         list: resp.data
       })
     }
-    console.log(this.props.actions.getlist())
+    this.props.actions.getlist()
   }
 
   addTodo = async (val) => {
@@ -45,8 +48,7 @@ class TodoListComponent extends React.Component {
   }
 
   deleteTodo = async (item) => {
-    console.log(item)
-
+    // console.log(item)
     this.setState({
       visible: true,
       item: item
@@ -103,4 +105,22 @@ class TodoListComponent extends React.Component {
   }
 }
 
-export default TodoListComponent
+const mapStateToProps = state => {
+  let stas = {}
+  // const { todoList } = state
+  for(let a in state){
+    stas[a] = state[a]
+  }
+  return {store:stas}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(todo, dispatch)
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoListComponent)

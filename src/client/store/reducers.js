@@ -12,9 +12,7 @@ const todoList = (state=[],action) => {
       return state
   }
 }
-
 const rootReducer = combineReducers({
   todoList
 })
-
 export default rootReducer

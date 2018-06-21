@@ -1,6 +1,6 @@
 import { GET_TODO, ADD_DOTO, DEL_TODO } from './setting'
 
-export const getlsit = () => {
+export const getlist = () => {
   return {
     type: GET_TODO
   }
