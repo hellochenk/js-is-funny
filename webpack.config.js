@@ -14,7 +14,6 @@ let plugins = [
   //   name: "vendors",
   // }),
   new webpack.NamedModulesPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   }),
@@ -24,6 +23,7 @@ if(process.env.NODE_ENV === 'production'){
   plugins.push(new UglifyJSPlugin())
 }else{
   console.log('-----NODE_ENV development model-----')
+  plugins.push(new webpack.HotModuleReplacementPlugin())
 }
 
 module.exports = {

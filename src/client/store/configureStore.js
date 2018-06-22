@@ -13,7 +13,7 @@ const mylogger = store => next => action => {
 const loggerMiddleware = createLogger()
 
 export default function configureStore(preloadedState) {
-  return createStore(
+  let store = createStore(
     rootReducer,
     preloadedState,
     applyMiddleware(
@@ -21,4 +21,12 @@ export default function configureStore(preloadedState) {
       loggerMiddleware
     )
   )
+
+  if(module.hot){
+    console.log('hot open................')
+  }else{
+    console.log('no hot.................')
+  }
+
+  return store
 }

@@ -5,7 +5,7 @@ import * as cors from 'koa2-cors'
 import * as bodyparser from 'koa-bodyparser'
 import { readdirSync, readFileSync } from 'fs';
 import * as path from 'path'
-import { getDb} from './dbConfig'
+import { getDb } from './db/index'
 
 const port:number = 9990;
 const app = new Koa();
