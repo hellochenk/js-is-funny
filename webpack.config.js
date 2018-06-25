@@ -18,10 +18,10 @@ let plugins = [
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   }),
 ]
-if(process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
   console.log('-----NODE_ENV production model-----')
   plugins.push(new UglifyJSPlugin())
-}else{
+} else {
   console.log('-----NODE_ENV development model-----')
   plugins.push(new webpack.HotModuleReplacementPlugin())
 }
@@ -33,7 +33,7 @@ module.exports = {
     app: './src/client/index.jsx',
     vendor: ['react', 'react-dom', 'redux', 'react-redux']
   },
-  plugins:plugins,
+  plugins: plugins,
   // optimization: {
   //   runtimeChunk: true,
   //   splitChunks: {
@@ -53,6 +53,13 @@ module.exports = {
     hot: true,
     port: 9991,
     historyApiFallback: true,
+    proxy: [{
+      context: '/api',
+      target: 'localhost:9990', // 代理跨域目标接口
+      changeOrigin: true,
+      secure: false, // 当代理某些https服务报错时用
+      cookieDomainRewrite: false //'localhost:9990' // 可以为false，表示不修改
+    }]
   },
   module: {
     rules: [{

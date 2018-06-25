@@ -3,9 +3,11 @@ import * as Router from 'koa-router'
 import * as logger from 'koa-logger'
 import * as cors from 'koa2-cors'
 import * as bodyparser from 'koa-bodyparser'
-import { readdirSync, readFileSync } from 'fs';
 import * as path from 'path'
 import { getDb } from './db/index'
+
+import * as Http from 'http'
+// const http = new Http()
 
 const port:number = 9990;
 const app = new Koa();
@@ -15,7 +17,6 @@ const posts = new Router();
 posts.post('/addtodo',async (ctx, next) => {
   const db = getDb()
   let { text } = ctx.request.body
-  // console.log('111111111111111111',ctx.request.body)
   await db.List.create({
     text: text,
     type: '0'
@@ -23,8 +24,12 @@ posts.post('/addtodo',async (ctx, next) => {
   ctx.response.body = JSON.stringify({status:'0'})
 });
 
+// posts.post('/api',async (ctx, next) => {
+  // fetch.
+  
+// })
+
 posts.post('/search',async (ctx, next) => {
-  // console.log('this is search todo')
   const db = getDb()
   let data = await db.List.findAll({
     attributes: ['id', 'text', 'type']
@@ -39,13 +44,19 @@ posts.post('/search',async (ctx, next) => {
 posts.post('/deltodo',async (ctx, next) => {
   let { id } = ctx.request.body
   const db = getDb()
-  let resp = await db.List.destroy({
+  // let result = await db.List.find({
+  //   where: {
+  //     id: id
+  //   }
+  // })
+  let result = await db.List.destroy({
     where: {
       id: id
     }
   })
-  if(resp){
+  if(result){
     ctx.response.body = JSON.stringify({status: '0'})
+    // ctx.response.body = JSON.stringify(result)
   }
 });
 
@@ -62,11 +73,21 @@ posts.post('/test', async (ctx) => {
 })
 
 router.use('/api', posts.routes(), posts.allowedMethods());
-app.use(cors())
-app.use(logger())
-app.use(bodyparser())
-app.use(router.routes())
-  // .use(router.allowedMethods());
+
+// router.post('/api/:key', async (ctx, next) => {
+//   let request = ctx.request.url
+//   console.log('111111111111111111', request)
+//   let arr = request.split('/')
+//   let key = arr[arr.length]
+
+// })
+
+app
+.use(cors())
+.use(logger())
+.use(bodyparser())
+.use(router.routes())
+// .use(router.allowedMethods());
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`app started at port ${port}...`)

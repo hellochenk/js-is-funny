@@ -14,10 +14,10 @@ const initDb = async () => {
     storage: 'path/to/database.sqlite'
   });
 
-  const List = await sequelize.import(__dirname + "/model/todolist")
-  const Employee = await sequelize.import(__dirname + "/model/employee")
+  let List = await sequelize.import(__dirname + "/model/todolist")
+  let Employee = await sequelize.import(__dirname + "/model/employee")
 
-  sequelize.sync()
+  await sequelize.sync()
 
   db =  { sequelize, List, Employee };
 }
