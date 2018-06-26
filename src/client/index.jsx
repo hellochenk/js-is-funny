@@ -6,6 +6,8 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import TodoListComponent from './modules/todoList/todolist.jsx'
+import SocketComponent from './modules/socket/socket.jsx'
+
 
 import configureStore from './store/configureStore'
 
@@ -23,7 +25,10 @@ class Container extends React.Component {
     return (
       <Provider store={store}>
         <Router>
+        <div>
           <Route path="/todolist" component={TodoListComponent} />
+          <Route path="/socket" component={SocketComponent} />
+          </div>
         </Router>
       </Provider>
     )
@@ -33,3 +38,4 @@ class Container extends React.Component {
 const dom = document.getElementById('root')
 
 ReactDOM.render( <Container/> , dom);
+

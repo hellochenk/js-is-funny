@@ -22,11 +22,11 @@ export default function configureStore(preloadedState) {
     )
   )
 
-  if(module.hot){
-    console.log('hot open................')
-  }else{
-    console.log('no hot.................')
-  }
+  // if(module.hot){
+  //   console.log('hot open................')
+  // }else{
+  //   console.log('no hot.................')
+  // }
 
   return store
 }

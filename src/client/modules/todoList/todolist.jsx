@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, List, Modal } from 'antd';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router-dom'
 import * as todo from './actions'
 const Search = Input.Search;
 // import zhCN from 'antd/lib/locale-provider/zh_CN';
@@ -144,7 +145,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(TodoListComponent)
+)(TodoListComponent))
