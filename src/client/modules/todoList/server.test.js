@@ -16,7 +16,7 @@ class createws{
     })
 
     this.io.on('messageFromServer', (data) => {
-      console.log('get data from server:', data)
+      console.log('data from server:', data)
     })
 
     this.io.on('disconnect', () => {

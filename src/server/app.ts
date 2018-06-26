@@ -1,24 +1,24 @@
 import { addRouter, port } from './initRouter'
 import * as ioServer from 'socket.io'
 
-let app:any,server:any;
+let app:any,io:any;
 
 const init = async () => {
   try {
     app = await addRouter() // init
 
-    server = ioServer('9993', {
+    io = ioServer('9993', {
       path: '/test'
     })
-    server.attach(app)
+    io.attach(app)
 
-    server.on('connection', (socket:any) => {
-      console.log('start connection .................')
+    io.on('connection', (socket:any) => {
+      console.log('start connection .................',socket.id)
       // socket.use((data:any, next:any) => {
       //   console.log('data------------------>', data)
       //   next()
       // })
-      socket.join('testRom1')
+      // socket.join('testRom1')
 
       socket.on('test', (data:any) => {
         console.log('vvvvvvvvv on test vvvvvvvvv')
@@ -30,8 +30,9 @@ const init = async () => {
       })
 
       socket.on('messageFromClient', (data:any) => {
-        console.log('get data from client :', data)
+        console.log('data from client :', socket.id, data)
         socket.emit('messageFromServer',`get data --> ${data}`)
+        // socket.to(socket.id).emit('messageFromServer',data)
       })
 
       socket.on('testRoomFromClient', (data:any) => {

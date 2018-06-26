@@ -51,7 +51,7 @@ class TodoListComponent extends React.Component {
     // await service.request('test')
     await this.getTodo()
 
-    ws.testRoomFromClient(val)
+    // ws.testRoomFromClient(val) //向聊天室发送信息
     // console.log('resp', resp)
   }
 
@@ -85,9 +85,9 @@ class TodoListComponent extends React.Component {
   connectWS = async () => {
     console.log(ws)
     ws.start()
-    // this.timer = setInterval(() => {
+    this.timer = setInterval(() => {
       ws.sendmsg('test msg')
-    // },1500)
+    },1500)
     
   }
 
