@@ -8,6 +8,10 @@ const Search = Input.Search;
 // import moment from 'moment';
 // import 'moment/locale/zh-cn';
 // moment.locale('zh-cn');
+
+import { createws } from './server.test'
+const ws = new createws('/test')
+
 import './todo.css'
 
 import { BaseService } from '../../service/service'
@@ -21,6 +25,7 @@ class TodoListComponent extends React.Component {
     visible:false,
     item:''
   }
+  timer
 
   componentWillMount(){
     this.getTodo()
@@ -45,6 +50,8 @@ class TodoListComponent extends React.Component {
     await service.request('addtodo', data)
     // await service.request('test')
     await this.getTodo()
+
+    ws.testRoomFromClient(val)
     // console.log('resp', resp)
   }
 
@@ -75,12 +82,27 @@ class TodoListComponent extends React.Component {
     })
   }
 
+  connectWS = async () => {
+    console.log(ws)
+    ws.start()
+    // this.timer = setInterval(() => {
+      ws.sendmsg('test msg')
+    // },1500)
+    
+  }
+
+  closews = () => {
+    ws.close()
+    clearInterval(this.timer)
+  }
+
   render() {
     let { list } = this.state
     // console.log(this.props)
     return (
       <div>
-        
+        <p onClick={this.connectWS}> connect ws </p>
+        <p onClick={this.closews}>close ws</p>
         <Search
           placeholder="add todo list"
           enterButton="add"
@@ -108,12 +130,12 @@ class TodoListComponent extends React.Component {
 }
 
 const mapStateToProps = state => {
-  let stas = {}
-  // const { todoList } = state
-  for(let a in state){
-    stas[a] = state[a]
-  }
-  return {store:stas}
+  // let stas = {}
+  // // const { todoList } = state
+  // for(let a in state){
+  //   stas[a] = state[a]
+  // }
+  return {store:state}
 }
 
 const mapDispatchToProps = dispatch => {
