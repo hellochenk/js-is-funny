@@ -11,7 +11,8 @@ const Search = Input.Search;
 // moment.locale('zh-cn');
 
 import { createws } from './server.test'
-const ws = new createws('/test')
+// const ws = new createws('/test')
+const ws = new createws()
 
 import './todo.css'
 
@@ -88,7 +89,7 @@ class TodoListComponent extends React.Component {
     ws.start()
     this.timer = setInterval(() => {
       ws.sendmsg('test msg')
-    },1500)
+    },5000)
     
   }
 

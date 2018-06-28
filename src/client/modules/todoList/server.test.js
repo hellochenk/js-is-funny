@@ -9,7 +9,7 @@ class createws{
       setting = {...setting, path}
     }
     console.log('setting------------->', setting)
-    this.io = io('http://localhost:9993', {...setting})
+    this.io = io('ws://localhost:9990', {...setting})
     this.io.on('connect', () => {
       console.log('on connect ..........')
       // this.sendmsg('get connection ..........')
