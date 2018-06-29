@@ -1,9 +1,10 @@
 import * as Sequelize from 'sequelize'
-
+import fs, { readdirSync } from 'fs'
+import { resolve } from 'path'
 let db:any = {};
 
 const initDb = async () => {
-  let sequelize = await new Sequelize('mydb', 'root', '123456', {
+  let sequelize = new Sequelize('mydb', 'root', '123456', {
     host: 'localhost',
     dialect: 'mysql',
     pool: {
@@ -14,16 +15,32 @@ const initDb = async () => {
     storage: 'path/to/database.sqlite'
   });
 
-  let List = await sequelize.import(__dirname + "/model/todolist")
-  let Employee = await sequelize.import(__dirname + "/model/employee")
+  let files = await readdirSync(resolve(__dirname,'models'))
 
-  await sequelize.sync()
+  // console.log('startDbstartDbstartDb:',files)
 
-  db =  { sequelize, List, Employee };
+  files.map(file => {
+    let model = sequelize.import(resolve(__dirname, `./models/${file}`))
+    // console.log(file)
+    db[model.name] = model
+  })
+
+  // let List = await sequelize.import(__dirname + "/model/todolist")
+  // let Employee = await sequelize.import(__dirname + "/model/employee")
+
+  // await sequelize.sync()
+
+  // db =  { sequelize };
+  return sequelize
 }
 
-initDb()
-
-export function getDb() {
-  return db
+const startDb = async () => {
+  let client = await initDb()
+  client.sync()
 }
+
+const getDb = () => {
+  return db  
+} 
+
+export { startDb, getDb }
