@@ -1,6 +1,7 @@
 import * as Koa from 'koa'
 import * as logger from 'koa-logger'
 import * as cors from 'koa2-cors'
+// import * as static from 'koa-static'
 import * as bodyparser from 'koa-bodyparser'
 import { addRouter, port } from './initRouter'
 import { createsocket } from './websocket/websocket'
@@ -11,7 +12,7 @@ const app = new Koa;
 const init = async () => {
   try {
     await startDb()
-
+    
     app
       .use(cors())
       .use(logger())

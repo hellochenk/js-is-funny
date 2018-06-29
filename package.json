@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "cross-env NODE_ENV=development webpack-dev-server --inline",
-        "start-test": "webpack --watch",
+        "start-test": "cross-env NODE_ENV=development webpack --watch",
         "server": "npm run build:live",
         "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/server/app.ts"
     },
@@ -45,6 +45,7 @@
         "@types/koa-bodyparser": "^4.2.0",
         "@types/koa-logger": "^3.1.0",
         "@types/koa-router": "^7.0.28",
+        "@types/koa-static": "^4.0.0",
         "@types/koa2-cors": "^2.0.1",
         "@types/sequelize": "^4.27.20",
         "@types/socket.io": "^1.4.36",

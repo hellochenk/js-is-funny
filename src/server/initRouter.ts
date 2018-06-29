@@ -13,10 +13,9 @@ const addRouter = async (app:Koa) => {
   let routerArr:router[] = await getRouters()
 
   routerArr.length&&routerArr.map(item => {
-    const { name, path, method, func, lib } = item
+    const { path, method, func, lib } = item
     let obj = require(resolve(__dirname, `${lib}`))
     // console.log(item)
-    // posts['post']
     // console.log(name, func, obj)
     posts[method](path, obj[func])
     // console.log(posts[method](name,func))

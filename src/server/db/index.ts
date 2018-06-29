@@ -21,7 +21,7 @@ const initDb = async () => {
 
   files.map(file => {
     let model = sequelize.import(resolve(__dirname, `./models/${file}`))
-    // console.log(file)
+    // console.log('sequelize...................................',model)
     db[model.name] = model
   })
 
