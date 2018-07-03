@@ -36,7 +36,7 @@ class Container extends React.Component {
   }
 }
 
-const dom = document.getElementById('root')
+const dom = document.getElementById('root') 
 
 ReactDOM.render( <Container/> , dom);
 
