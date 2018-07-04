@@ -4,7 +4,7 @@ let's study react redux node koa
 ### client端
 主要使用 react, redux, react-router <br/>
 目前完成 todolist demo, 数据来自服务端请求, <br/>
-todo:redux控制状态 & router split<br/>
+todo:redux控制状态 & <del>router split</del><br/>
 
 ### server端
 主要使用 koa, koa-router, sequelize <br/>
