@@ -9,6 +9,8 @@ const Search = Input.Search;
 // import moment from 'moment';
 // import 'moment/locale/zh-cn';
 // moment.locale('zh-cn');
+import { injectReducer } from '../../store/reducers.js'
+import { todoList } from './reducers.js'
 
 import { createws } from './server.test'
 // const ws = new createws('/test')
@@ -30,6 +32,8 @@ class TodoListComponent extends React.Component {
   timer
 
   componentWillMount(){
+    // this.props.store;
+    // injectReducer(this.props.store, 'todoList', todoList)
     this.getTodo()
   }
   

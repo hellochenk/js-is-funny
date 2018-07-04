@@ -1,7 +1,11 @@
 import { createStore, applyMiddleware } from 'redux'
+import { browserHistory } from 'react-router'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
+// import createSagaMiddleware from 'redux-saga'
 import rootReducer from './reducers.js'
+// const sagaMiddleware = createSagaMiddleware()
+// import routerSaga from '../routes/router.saga'
 
 const mylogger = store => next => action => {
   console.log('dispatching', action)
@@ -21,12 +25,53 @@ export default function configureStore(preloadedState) {
       loggerMiddleware
     )
   )
-
-  // if(module.hot){
-  //   console.log('hot open................')
-  // }else{
-  //   console.log('no hot.................')
-  // }
+  store.asyncReducers = {}
 
   return store
 }
+
+// import { applyMiddleware, compose, createStore } from 'redux'
+// import thunk from 'redux-thunk'
+// import { browserHistory } from 'react-router'
+// import makeRootReducer from './reducers'
+// import { updateLocation } from './location'
+
+
+// export default (initialState = {}) => {
+
+//   // const middleware = [thunk]
+//      const middleware = []
+
+//   const enhancers = []
+//   if (__DEV__) {
+//     const devToolsExtension = window.devToolsExtension
+//     if (typeof devToolsExtension === 'function') {
+//       enhancers.push(devToolsExtension())
+//     }
+//     middleware.push(logger, sagaMiddleware)
+//   }
+
+//   const store = createStore(
+//     makeRootReducer(),
+//     initialState,
+//     compose(
+//       applyMiddleware(...middleware),
+//       ...enhancers
+//     )
+//   )
+//   store.asyncReducers = {}
+
+//   sagaMiddleware.run(routerSaga)
+
+//   // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
+//   store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
+
+//   if (module.hot) {
+//     module.hot.accept('./reducers', () => {
+//       const reducers = require('./reducers').default
+//       store.replaceReducer(reducers(store.asyncReducers))
+//     })
+//   }
+
+//   return store
+// }

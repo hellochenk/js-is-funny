@@ -3,19 +3,23 @@ import 'babel-polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
+import { createRouter } from './modules/index.js'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import TodoListComponent from './modules/todoList/todolist.jsx'
-import SocketComponent from './modules/socket/socket.jsx'
-
-
 import configureStore from './store/configureStore'
+const store = configureStore({})
+let routerArr = createRouter(store);
 
-const store = configureStore()
-
-// loadcomponent = () => {
-//   return import('./modules/todoList/todolist.jsx')
-// }
+const RouteWithSubRoutes = route => (
+  <Route
+    path={route.path}
+    render={props => <route.component 
+      {...props} 
+      store={route.store} 
+      routes={route.routes} 
+    />}
+  />
+)
 
 class Container extends React.Component {
   constructor(props){
@@ -26,9 +30,10 @@ class Container extends React.Component {
     return (
       <Provider store={store}>
         <Router>
-        <div>
-          <Route path="/todolist" component={TodoListComponent} />
-          <Route path="/socket" component={SocketComponent} />
+          <div>
+            {
+              routerArr.map((route,i) => <RouteWithSubRoutes key={i} {...route} store={store}/>)
+            }
           </div>
         </Router>
       </Provider>

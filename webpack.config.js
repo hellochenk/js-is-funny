@@ -8,6 +8,7 @@ let plugins = [
   new CleanWebpackPlugin(['dist']),
   new HtmlWebpackPlugin({
     title: 'hello webpack',
+    favicon: './src/favicon.ico',
     template: './src/index.html'
   }),
   // new CommonsChunkPlugin({
@@ -31,7 +32,7 @@ module.exports = {
   entry: {
     // candy: './src/client/candy.js',
     app: './src/client/index.jsx',
-    vendor: ['react', 'react-dom', 'redux', 'react-redux']
+    vendor: ['react', 'react-dom', 'redux', 'react-redux'],
   },
   plugins: plugins,
   // optimization: {
