@@ -1,10 +1,10 @@
-import { GET_TODO, ADD_DOTO, DEL_TODO } from './setting'
+import { GET_TODO, ADD_DOTO, DEL_TODO, UPDATE_TODO } from './setting'
 
 const todoList = (state=[], action) => {
   switch (action.type) {
-    case GET_TODO:
+    // case GET_TODO:
       // console.log(action.data)
-      return state
+      // return state
     case ADD_DOTO:
       return action.payload
     default:

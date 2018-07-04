@@ -9,17 +9,12 @@ const Search = Input.Search;
 // import moment from 'moment';
 // import 'moment/locale/zh-cn';
 // moment.locale('zh-cn');
-import { injectReducer } from '../../store/reducers.js'
-import { todoList } from './reducers.js'
 
 import { createws } from './server.test'
 // const ws = new createws('/test')
 const ws = new createws()
 
 import './todo.css'
-
-import { BaseService } from '../../service/service'
-const service = new BaseService()
 
 class TodoListComponent extends React.Component {
   constructor(props) {
@@ -38,24 +33,24 @@ class TodoListComponent extends React.Component {
   }
   
   getTodo = async () => {
-    let resp = await service.request('search')
-    // console.log('getTodo.........',resp)
-    if(resp && resp.status === '0'){
-      this.setState({
-        list: resp.data
-      })
-    }
+    // let resp = await service.request('search')
+    // // console.log('getTodo.........',resp)
+    // if(resp && resp.status === '0'){
+    //   this.setState({
+    //     list: resp.data
+    //   })
+    // }
     this.props.actions.getlist()
   }
 
   addTodo = async (val) => {
-    let data = {
-      text: val
-    }
-    this.props.actions.addlist({text:'321312312'})
-    await service.request('addtodo', data)
-    // await service.request('test')
-    await this.getTodo()
+    // let data = {
+    //   text: val
+    // }
+    // this.props.actions.addlist({text:'321312312'})
+    // await service.request('addtodo', data)
+    // // await service.request('test')
+    // await this.getTodo()
 
     // ws.testRoomFromClient(val) //向聊天室发送信息
     // console.log('resp', resp)
@@ -63,23 +58,23 @@ class TodoListComponent extends React.Component {
 
   deleteTodo = async (item) => {
     // console.log(item)
-    this.setState({
-      visible: true,
-      item: item
-    })
+    // this.setState({
+    //   visible: true,
+    //   item: item
+    // })
   }
 
   handleOk = async () => {
-    console.log('submit')
-    let resp = await service.request('deltodo', {id: this.state.item.id})
-    // todo
-    if(resp.status === '0'){
-      this.setState({
-        visible: false
-      },()=>{
-        this.getTodo()
-      })
-    }
+    // console.log('submit')
+    // let resp = await service.request('deltodo', {id: this.state.item.id})
+    // // todo
+    // if(resp.status === '0'){
+    //   this.setState({
+    //     visible: false
+    //   },()=>{
+    //     this.getTodo()
+    //   })
+    // }
   }
 
   handleCancel = () => {

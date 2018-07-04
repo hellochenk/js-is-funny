@@ -11,7 +11,7 @@ export const updateLocation = ({ dispatch }) => {
   return (nextLocation) => dispatch(locationChange(nextLocation))
 }
 
-const initialState = null
+const initialState = ''
 export default function locationReducer (state = initialState, action) {
   return action.type === LOCATION_CHANGE
     ? action.payload

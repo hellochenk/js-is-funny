@@ -1,11 +1,12 @@
 import { createStore, applyMiddleware } from 'redux'
 import { browserHistory } from 'react-router'
-import thunkMiddleware from 'redux-thunk'
+// import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-// import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware from 'redux-saga'
 import rootReducer from './reducers.js'
-// const sagaMiddleware = createSagaMiddleware()
-// import routerSaga from '../routes/router.saga'
+
+const sagaMiddleware = createSagaMiddleware()
+import rootSaga from '../modules/rootSaga.js'
 
 const mylogger = store => next => action => {
   console.log('dispatching', action)
@@ -16,20 +17,22 @@ const mylogger = store => next => action => {
 
 const loggerMiddleware = createLogger()
 
+const enhancers = [
+  sagaMiddleware,
+  loggerMiddleware
+]
+
 export default function configureStore(preloadedState) {
   let store = createStore(
     rootReducer(),
     preloadedState,
-    applyMiddleware(
-      thunkMiddleware,
-      loggerMiddleware
-    )
+    applyMiddleware(...enhancers)
   )
   store.asyncReducers = {}
 
+  sagaMiddleware.run(rootSaga)
   return store
 }
-
 // import { applyMiddleware, compose, createStore } from 'redux'
 // import thunk from 'redux-thunk'
 // import { browserHistory } from 'react-router'
