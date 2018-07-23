@@ -1,5 +1,5 @@
-import { call, put, takeEvery, takeLatest, fork } from 'redux-saga/effects'
-import todoListSaga from './todoList/todolist.saga.js'
+import { fork } from 'redux-saga/effects'
+import todoListSaga from './todoList/todolist.saga'
 
 function* rootSaga(){
   yield [

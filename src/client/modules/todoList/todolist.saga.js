@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest, fork } from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { GET_TODO, ADD_DOTO, DEL_TODO, UPDATE_TODO } from './setting'
 
 import { BaseService } from '../../service/service'

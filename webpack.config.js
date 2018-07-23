@@ -14,6 +14,12 @@ let plugins = [
   // new CommonsChunkPlugin({
   //   name: "vendors",
   // }),
+  // new webpack.ProvidePlugin({
+  //   $: 'jquery',
+  //   jQuery: 'jquery',
+  //   _: 'lodash',
+  //   rx: 'rxjs'
+  // }),
   new webpack.NamedModulesPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
@@ -30,9 +36,12 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   mode: "development",
   entry: {
-    // candy: './src/client/candy.js',
+    candy: './src/client/candy.js',
     app: './src/client/index.jsx',
-    vendor: ['react', 'react-dom', 'redux', 'react-redux'],
+    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'redux-saga', 'lodash', 'rxjs'],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'], 
   },
   plugins: plugins,
   // optimization: {
