@@ -1,4 +1,17 @@
-export const ADD_DOTO = 'ADD_DOTO'
-export const DEL_TODO = 'DEL_TODO'
-export const UPDATE_TODO = 'UPDATE_TODO'
-export const GET_TODO = 'GET_TODO'
+
+const initData = {
+  data: []
+}
+
+const todoListType = {
+  ADD_DOTO: 'ADD_DOTO',
+  DEL_TODO: 'DEL_TODO',
+  UPDATE_TODO: 'UPDATE_TODO',
+  GET_TODO: 'GET_TODO',
+  SAVE_DATA: 'SAVE_DATA'
+}
+
+export {
+  todoListType,
+  initData
+}

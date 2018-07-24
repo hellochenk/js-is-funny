@@ -1,20 +1,30 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { GET_TODO, ADD_DOTO, DEL_TODO, UPDATE_TODO } from './setting'
-
+import { message } from 'antd'
+import { getlist } from './actions'
+import { todoListType } from './setting'
 import { BaseService } from '../../service/service'
 const service = new BaseService()
 
-function* addListSaga(actions){
+function* addListSaga(actions) {
   try {
-    console.log('add list')
+    let resp = yield call(service.request, 'addtodo', actions.payload)
+    if(resp.status === '0') {
+      message.success('添加成功')
+      yield put(getlist())
+    }
   } catch (error) {
     console.log(error)
   }
 }
 
-function* delListSaga(){
+function* delListSaga(actions){
   try {
-    console.log('del list')
+    const { id } = actions.payload
+    let resp = yield call(service.request, 'deltodo', {id})
+    if(resp.status === '0') {
+      message.success('删除成功')
+      yield put(getlist())
+    }
   } catch (error) {
     console.log(error)
   }
@@ -28,21 +38,23 @@ function* updataListSaga(){
   }
 }
 
-function* queryListSaga(){
+function* queryListSaga() {
   try {
-    console.log('query list')
+    let resp = yield call(service.request, 'search')
+    if(resp.status === '0') {
+      yield put({type: todoListType.SAVE_DATA, payload: resp.data});
+    }
+    console.log(resp)
   } catch (error) {
     console.log(error)
   }
 }
 
-// GET_TODO, ADD_DOTO, DEL_TODO, UPDATE_TODO
-
 function* todoListSaga() {
-  yield takeLatest("GET_TODO", queryListSaga);
-  yield takeLatest("ADD_DOTO", addListSaga);
-  yield takeLatest("DEL_TODO", delListSaga);
-  yield takeLatest("UPDATE_TODO", updataListSaga);
+  yield takeLatest(todoListType.GET_TODO, queryListSaga);
+  yield takeLatest(todoListType.ADD_DOTO, addListSaga);
+  yield takeLatest(todoListType.DEL_TODO, delListSaga);
+  yield takeLatest(todoListType.UPDATE_TODO, updataListSaga);
 }
 
 export default todoListSaga;

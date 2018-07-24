@@ -1,19 +1,17 @@
-import { GET_TODO, ADD_DOTO, DEL_TODO, UPDATE_TODO } from './setting'
+import { todoListType, initData } from './setting'
 
-const todoList = (state=[], action) => {
+const todoList = (state = initData, action) => {
   switch (action.type) {
-    // case GET_TODO:
-      // console.log(action.data)
-      // return state
-    case ADD_DOTO:
-      return action.payload
+    case todoListType.SAVE_DATA:
+      return {
+        ...state,
+        data: action.payload
+      }
     default:
       return state
   }
 }
-// const rootReducer = combineReducers({
-//   todoList
-// })
+
 export { todoList }
 
 // const initialState = []

@@ -27,41 +27,22 @@ class TodoListComponent extends React.Component {
   timer
 
   componentWillMount(){
-    // this.props.store;
-    // injectReducer(this.props.store, 'todoList', todoList)
     this.getTodo()
   }
   
   getTodo = async () => {
-    // let resp = await service.request('search')
-    // // console.log('getTodo.........',resp)
-    // if(resp && resp.status === '0'){
-    //   this.setState({
-    //     list: resp.data
-    //   })
-    // }
     this.props.actions.getlist()
   }
 
   addTodo = async (val) => {
-    // let data = {
-    //   text: val
-    // }
-    // this.props.actions.addlist({text:'321312312'})
-    // await service.request('addtodo', data)
-    // // await service.request('test')
-    // await this.getTodo()
-
-    // ws.testRoomFromClient(val) //向聊天室发送信息
-    // console.log('resp', resp)
+    let data = {
+      text: val
+    }
+    await this.props.actions.addlist(data)
   }
 
   deleteTodo = async (item) => {
-    // console.log(item)
-    // this.setState({
-    //   visible: true,
-    //   item: item
-    // })
+    this.props.actions.deletelist(item)
   }
 
   handleOk = async () => {
@@ -98,7 +79,8 @@ class TodoListComponent extends React.Component {
   }
 
   render() {
-    let { list } = this.state
+    const { todoList } = this.props
+    const { data } = todoList
     // console.log(this.props)
     return (
       <div>
@@ -110,7 +92,7 @@ class TodoListComponent extends React.Component {
           onSearch={(val) => {this.addTodo(val)}}
         />
         <List
-          dataSource={list}
+          dataSource={data}
           renderItem={item => (
             <List.Item onClick={()=>{this.deleteTodo(item)}}>
               <p className='item'>{item.text}</p>
@@ -136,7 +118,7 @@ const mapStateToProps = state => {
   // for(let a in state){
   //   stas[a] = state[a]
   // }
-  return {store:state}
+  return {...state}
 }
 
 const mapDispatchToProps = dispatch => {
