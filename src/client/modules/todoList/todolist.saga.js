@@ -1,6 +1,6 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { message } from 'antd'
-import { getlist } from './actions'
+import { getlist, saveList } from './actions'
 import { todoListType } from './setting'
 import { BaseService } from '../../service/service'
 const service = new BaseService()
@@ -13,7 +13,7 @@ function* addListSaga(actions) {
       yield put(getlist())
     }
   } catch (error) {
-    console.log(error)
+    message.error('添加失败')
   }
 }
 
@@ -26,7 +26,7 @@ function* delListSaga(actions){
       yield put(getlist())
     }
   } catch (error) {
-    console.log(error)
+    message.error('删除失败')
   }
 }
 
@@ -42,9 +42,8 @@ function* queryListSaga() {
   try {
     let resp = yield call(service.request, 'search')
     if(resp.status === '0') {
-      yield put({type: todoListType.SAVE_DATA, payload: resp.data});
+      yield put(saveList(resp.data));
     }
-    console.log(resp)
   } catch (error) {
     console.log(error)
   }

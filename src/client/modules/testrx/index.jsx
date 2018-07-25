@@ -1,19 +1,21 @@
 import * as Rx from 'rxjs/Rx';
+import { BaseService } from '../../service/service'
+const service = new BaseService()
 
-var subject = new Rx.Subject();
-
-subject.subscribe({
-  next: v => console.log('observerA: ', v)
+var foo = Rx.Observable.create(function (observer) {
+  console.log('Hello');
+  observer.next(42);
 });
-subject.subscribe({
-  next: v => console.log('multicast console', v)
-})
-// subject.subscribe({
-//   next: (v) => console.log('observerB: ' + v)
-// });
 
-var observable = Rx.Observable.from([1, 2, 3]);
+foo.subscribe(function (x) {
+  console.log(x);
+});
+foo.subscribe(function (y) {
+  console.log(y);
+});
 
-observable.subscribe(subject);
+console.log('before');
+console.log(foo.call());
+console.log('after');
 
 export default () => (123)

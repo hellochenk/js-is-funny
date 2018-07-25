@@ -5,28 +5,24 @@ import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import * as todo from './actions'
 const Search = Input.Search;
-// import zhCN from 'antd/lib/locale-provider/zh_CN';
-// import moment from 'moment';
-// import 'moment/locale/zh-cn';
-// moment.locale('zh-cn');
 
 import { createws } from './server.test'
 // const ws = new createws('/test')
 const ws = new createws()
-
 import './todo.css'
 
+// @connect(
+//   state => state,
+//   dispatch => ({actions: bindActionCreators(todo, dispatch)})
+// )
 class TodoListComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   state = {
     visible:false,
     item:''
   }
   timer
 
-  componentWillMount(){
+  componentWillMount() {
     this.getTodo()
   }
   
@@ -45,18 +41,7 @@ class TodoListComponent extends React.Component {
     this.props.actions.deletelist(item)
   }
 
-  handleOk = async () => {
-    // console.log('submit')
-    // let resp = await service.request('deltodo', {id: this.state.item.id})
-    // // todo
-    // if(resp.status === '0'){
-    //   this.setState({
-    //     visible: false
-    //   },()=>{
-    //     this.getTodo()
-    //   })
-    // }
-  }
+  handleOk = async () => {}
 
   handleCancel = () => {
     this.setState({
@@ -113,11 +98,6 @@ class TodoListComponent extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // let stas = {}
-  // // const { todoList } = state
-  // for(let a in state){
-  //   stas[a] = state[a]
-  // }
   return {...state}
 }
 
