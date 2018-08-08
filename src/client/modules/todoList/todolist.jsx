@@ -7,6 +7,7 @@ import * as todo from './actions'
 const Search = Input.Search;
 
 import { createws } from './server.test'
+// import { fetch } from '../testrx/index'
 // const ws = new createws('/test')
 const ws = new createws()
 import './todo.css'
@@ -22,7 +23,7 @@ class TodoListComponent extends React.Component {
   }
   timer
 
-  componentWillMount() {
+  componentDidMount() {
     this.getTodo()
   }
   
