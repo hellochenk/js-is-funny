@@ -1,10 +1,10 @@
-import { router, method } from '../config'
+import { routerType, method } from '../config'
 
 const base = {
   lib: 'controllers/todolist.controller'
 }
 
-const todoList:router[] = [
+const todoList:routerType[] = [
   {
     name: 'addtodo',
     path: '/addTodo',

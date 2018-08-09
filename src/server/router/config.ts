@@ -11,12 +11,15 @@ enum method{
  * @function 当前路由对应处理函数
  * @name 当前路由对应处理函数名
  */
-interface router{
+interface routerType{
   path: string;
   method: 'get'|'post'|'del'|'put';
   func: string;
   name: string;
-  lib?:string
+  lib?: string
 }
 
-export { router, method }
+export { 
+  routerType, 
+  method 
+}

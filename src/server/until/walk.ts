@@ -18,7 +18,7 @@ const walk = (reqPath: any) => {
       ? itemArr[itemArr.length - 1] 
       : "undefined";
     
-    if (typeof mimes[itemMime] === "undefined") {
+    if (typeof (mimes[itemMime]) === "undefined") {
       dirList.push(files[i]);
     } else {
       fileList.push(files[i]);
