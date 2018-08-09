@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "cross-env NODE_ENV=development webpack-dev-server --inline",
-        "start-test": "cross-env NODE_ENV=development webpack --watch",
+        "st": "cross-env NODE_ENV=development webpack --watch",
         "server": "npm run build:live",
         "build ": "webpack",
         "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/server/app.ts"

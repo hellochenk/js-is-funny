@@ -58,11 +58,15 @@ module.exports = {
     chunkFilename: '[name].bundle.js',
   },
   devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    },
+    historyApiFallback: true,
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     hot: true,
     port: 9991,
-    historyApiFallback: true,
     proxy: [{
       context: '/api',
       target: 'localhost:9990', // 代理跨域目标接口
@@ -71,6 +75,42 @@ module.exports = {
       cookieDomainRewrite: false //'localhost:9990' // 可以为false，表示不修改
     }]
   },
+  // devServer: {
+  //   headers: {
+  //     'Access-Control-Allow-Origin': '*',
+  //     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+  //   },
+  //   historyApiFallback: true,
+  //   hot: true,
+  //   inline: true,
+  //   //progress: true,
+  //   host: '0.0.0.0',
+  //   port: sysConfigDefault.devPort,
+  //   proxy: {
+  //     '*': {
+  //       target: 'http://localhost:' + sysConfigDefault.port,
+  //       secure: false,
+  //       ws: false,
+  //       bypass: function (req, res, opt) {
+  //         let pth = req.path
+  //         if (/^\/sql-pad/.test(pth)) {
+  //           return
+  //         }
+  //         if (
+  //           (
+  //             /(\.json|\.jpg|\.png|\.css)$/.test(pth) &&
+  //             !/^\/static\//.test(pth) &&
+  //             !/^\/_bc\//.test(pth)
+  //           ) ||
+  //           /\.bundle\.js/.test(pth)
+  //         ) {
+  //           console.log('bypass', pth)
+  //           return req.path
+  //         }
+  //       }
+  //     }
+  //   }
+  // },
   module: {
     rules: [{
       test: /\.css$/,

@@ -15,24 +15,12 @@ const addRouter = async (app:Koa) => {
   routerArr.length&&routerArr.map(item => {
     const { path, method, func, lib } = item
     let obj = require(resolve(__dirname, `${lib}`))
-    // console.log(item)
-    // console.log(name, func, obj)
     posts[method](path, obj[func])
-    // console.log(posts[method](name,func))
   })
-
-  // posts.post('/test', async (ctx) => {
-  //   const db = getDb()
-  //   let resp = await db.Employee.create({
-  //     name:'chenk',
-  //     title:'haha'
-  //   })
-  //   if(resp){
-  //     console.log(resp);
-  //     ctx.response.body = { status: 'cuccess'}
-  //   }
-  // })
-  
+  router.use('/index', ctx => {
+    
+    // ctx.response.body = 
+  })
   router.use('/api', posts.routes(), posts.allowedMethods());
 
   app
