@@ -1,5 +1,5 @@
 # js-is-funny
-let's study react redux node koa
+let's study react&redux&node&koa&rxjs
 
 ### client端
 主要使用 react, redux, react-router <br/>
