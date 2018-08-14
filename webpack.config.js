@@ -11,6 +11,7 @@ let plugins = [
     favicon: './src/favicon.ico',
     template: './src/index.html'
   }),
+  // new webpack.optimize.ModuleConcatenationPlugin(),
   // new CommonsChunkPlugin({
   //   name: "vendors",
   // }),
@@ -41,7 +42,8 @@ module.exports = {
     vendor: ['react', 'react-dom', 'redux', 'react-redux', 'redux-saga', 'lodash', 'rxjs'],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'], 
+    extensions: ['.js', '.jsx', '.ts', '.tsx'] 
+    // alias: rxPaths()
   },
   plugins: plugins,
   // optimization: {
