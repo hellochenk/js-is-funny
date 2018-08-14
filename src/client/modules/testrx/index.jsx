@@ -1,38 +1,60 @@
 import React from 'react'
 import * as Rx from 'rxjs/Rx';
 import { interval } from 'rxjs/observable/interval';
-import { filter, map, take, combineAll, toArray } from 'rxjs/operators';
+import { mapTo, startWith, scan, filter, map, take, combineAll, toArray, tap } from 'rxjs/operators';
+import { timer } from 'rxjs/observable/timer';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
-// 每秒发出值，并只取前2个
-const source = interval(1000).pipe(take(3))//.subscribe(val => console.log('source:',val))
+class Ha extends React.Component{
+  btn1 = React.createRef()
+  btn2 = React.createRef()
 
-// 将 source 发出的每个值映射成取前5个值的 interval observable
-const example = source.pipe(
-  map(val => interval(1000).pipe(
-    map(i => `val: ${val}, i: ${i}`), 
-    take(5)
-  ))
-)//.subscribe(val => val.subscribe(val => console.log(val)))
+  state = {
+    a: 'btn1',
+    b: 'btn2',
+    common: ''
+  }
 
-/*
-  soure 中的2个值会被映射成2个(内部的) interval observables，
-  这2个内部 observables 每秒使用 combineLatest 策略来 combineAll，
-  每当任意一个内部 observable 发出值，就会发出每个内部 observable 的最新值。
-*/
-const combined = example.pipe(combineAll());
+  componentDidMount() {
+    let a = this.btn1
+    let b = this.btn2
+    let a$ = this.createBtnAbserverable(a, 'a')
+    let b$ = this.createBtnAbserverable(b, 'b')
 
-/*
-  ["Result (0): 0", "Result (1): 0"]
-  ["Result (0): 1", "Result (1): 0"]
-  ["Result (0): 1", "Result (1): 1"]
-  ["Result (0): 2", "Result (1): 1"]
-  ["Result (0): 2", "Result (1): 2"]
-  ["Result (0): 3", "Result (1): 2"]
-  ["Result (0): 3", "Result (1): 3"]
-  ["Result (0): 4", "Result (1): 3"] 
-  ["Result (0): 4", "Result (1): 4"]
-*/
-const subscribe = combined.subscribe(val => console.log(val));
+    let common$ = combineLatest(a$, b$).pipe(
+      map(([a,b]) => a + b )
+    ).subscribe(val => this.setState({
+      common: val
+    }))
+  }
 
+  createBtnAbserverable = (dom, a) => {
+    let common = fromEvent(dom, 'click').pipe(
+      // 将每次点击映射成1
+      mapTo(1),
+      startWith(0),
+      // 追踪运行中的总数 
+      scan((acc, curr) => acc + curr),
+      // 为适当的元素设置 HTML
+      // tap(setHtml(`${id}Total`))
+      tap(val => this.setState({
+        [a]: val
+      }))
+    )
+    return common
+  }
 
-export default () => <p style={{padding: 10}}>let's test rxjs & lodash</p>
+  render() {
+    const { a, b, common } = this.state
+    return (
+      <div>
+        <button ref={val => this.btn1 = val}>{a}</button>
+        <button ref={val => this.btn2 = val}>{b}</button>
+        <p>{common}</p>
+      </div>
+    )
+  }
+}
+
+export default Ha
