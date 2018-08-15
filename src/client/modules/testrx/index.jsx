@@ -1,11 +1,13 @@
 import React from 'react'
-import * as Rx from 'rxjs/Rx';
-import { interval } from 'rxjs/observable/interval';
+// import * as Rx from 'rxjs/Rx';
+// import { interval } from 'rxjs/observable/interval';
 import { mapTo, startWith, scan, filter, map, take, combineAll, toArray, tap } from 'rxjs/operators';
-import { timer } from 'rxjs/observable/timer';
+// import { timer } from 'rxjs/observable/timer';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
+import './testrx'
+// use rx control state...
 class Ha extends React.Component{
   btn1 = React.createRef()
   btn2 = React.createRef()
@@ -31,13 +33,9 @@ class Ha extends React.Component{
 
   createBtnAbserverable = (dom, a) => {
     let common = fromEvent(dom, 'click').pipe(
-      // 将每次点击映射成1
       mapTo(1),
       startWith(0),
-      // 追踪运行中的总数 
       scan((acc, curr) => acc + curr),
-      // 为适当的元素设置 HTML
-      // tap(setHtml(`${id}Total`))
       tap(val => this.setState({
         [a]: val
       }))
@@ -48,9 +46,9 @@ class Ha extends React.Component{
   render() {
     const { a, b, common } = this.state
     return (
-      <div>
-        <button ref={val => this.btn1 = val}>{a}</button>
-        <button ref={val => this.btn2 = val}>{b}</button>
+      <div style={{padding: '10px'}}>
+        <button style={{border:'none',background:'#ccc',color: '#fff',marginRight:'10px'}} ref={val => this.btn1 = val}>{a}</button>
+        <button style={{border:'none',background:'#ccc',color: '#fff'}} ref={val => this.btn2 = val}>{b}</button>
         <p>{common}</p>
       </div>
     )
