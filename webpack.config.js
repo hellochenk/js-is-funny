@@ -39,7 +39,7 @@ module.exports = {
   entry: {
     candy: './src/client/candy.js',
     app: './src/client/index.jsx',
-    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'redux-saga', 'lodash', 'rxjs'],
+    vendor: ['react', 'react-dom', 'redux', /*'react-redux',*/ 'redux-saga', 'lodash', /*'rxjs'*/],
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'] 
