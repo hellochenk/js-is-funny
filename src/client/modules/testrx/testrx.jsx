@@ -8,26 +8,28 @@ import { take,
   concatAll, 
   combineAll, 
   // merge, 
-  mergeAll 
+  mergeAll ,
+  every,
+  defaultIfEmpty
 } from 'rxjs/operators';
 
 import { of } from 'rxjs/observable/of';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { interval } from 'rxjs/observable/interval';
+import { race } from 'rxjs/observable/race';
 import { concat } from 'rxjs/observable/concat';
 import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
+import { zip } from 'rxjs/observable/zip';
+import { empty } from 'rxjs/observable/empty';
 
-const source = interval(500).pipe(take(5));
+const a = interval(1000)
 
-/*
-  interval 每0.5秒发出一个值。这个值会被映射成延迟1秒的 interval 。mergeAll 操作符接收一个可选参数
-  以决定在同一时间有多少个内部 observables 可以被订阅。其余的 observables 会先暂存以等待订阅。
-*/
-// source : [0, 1, 2, 3, 4]
+a.pipe(map(val => `a: ${val}`),take(10)).subscribe(val => console.log(val))
+a.pipe(map(val => `b: ${val}`),take(5)).subscribe(val => console.log(val))
 
-const example = source.pipe(
-  // 在这个map中返回5个observerable->
-  map(val => source.pipe(delay(1000), take(3))), 
-  mergeAll()
-).subscribe(val => console.log(val));
+// 输出: 'Complete!'
+const subscribe = empty().subscribe({
+  next: () => console.log('Next'),
+  complete: () => console.log('Complete!')
+});

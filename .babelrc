@@ -3,7 +3,8 @@
     "env", {
       "targets": {
         "node": "current"
-      }
+      },
+      "modules": false
     }
   ], "es2015", "react", "stage-3"],
   "plugins": [
