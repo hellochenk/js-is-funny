@@ -23,13 +23,16 @@ import { merge } from 'rxjs/observable/merge';
 import { zip } from 'rxjs/observable/zip';
 import { empty } from 'rxjs/observable/empty';
 
-const a = interval(1000)
+const oba$ = interval(1000).pipe(take(4))
+const obb$ = interval(2000)
 
-a.pipe(map(val => `a: ${val}`),take(10)).subscribe(val => console.log(val))
-a.pipe(map(val => `b: ${val}`),take(5)).subscribe(val => console.log(val))
 
-// 输出: 'Complete!'
-const subscribe = empty().subscribe({
-  next: () => console.log('Next'),
-  complete: () => console.log('Complete!')
-});
+const obc$ = interval(3000)
+
+const myOb$ = zip(
+  oba$,
+  obb$,
+  obc$
+)
+
+myOb$.subscribe(val => console.log('subscribe --->', val))
