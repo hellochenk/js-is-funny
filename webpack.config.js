@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let plugins = [
   new CleanWebpackPlugin(['dist']),
@@ -21,6 +22,7 @@ let plugins = [
   //   _: 'lodash',
   //   rx: 'rxjs'
   // }),
+  // new BundleAnalyzerPlugin(),
   new webpack.NamedModulesPlugin(),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)

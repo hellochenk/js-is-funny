@@ -1,12 +1,14 @@
 import * as Koa from 'koa'
 import * as logger from 'koa-logger'
 import * as cors from 'koa2-cors'
-// import * as koastatic from 'koa-static'
+// import * as koaStatic from 'koa-static'
 import * as bodyparser from 'koa-bodyparser'
 import { addRouter, port } from './initRouter'
 import { createsocket } from './websocket/websocket'
 import { startDb } from './db/index'
 // import * as content from './until/content'
+
+const path = require('path')
 
 const app = new Koa
 const staticPath = './static'
@@ -19,7 +21,9 @@ const init = async () => {
       .use(cors())
       .use(logger())
       .use(bodyparser())
-      // .use(koastatic('dist'))
+      // .use(koaStatic(
+      //   path.join( __dirname, staticPath)
+      // ))
     
     await addRouter(app) // init
 

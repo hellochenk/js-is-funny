@@ -1,5 +1,6 @@
 
-import { take, 
+import { 
+  take, 
   map, 
   mapTo, 
   startWith, 
@@ -10,7 +11,9 @@ import { take,
   // merge, 
   mergeAll ,
   every,
-  defaultIfEmpty
+  defaultIfEmpty,
+  mergeMap,
+  catchError
 } from 'rxjs/operators';
 
 import { of } from 'rxjs/observable/of';
@@ -22,17 +25,34 @@ import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { zip } from 'rxjs/observable/zip';
 import { empty } from 'rxjs/observable/empty';
+import { from } from 'rxjs/observable/from';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { fromPromise } from 'rxjs/observable/fromPromise';
 
-const oba$ = interval(1000).pipe(take(4))
-const obb$ = interval(2000)
 
+// 基于输入来决定是 resolve 还是 reject 的示例 promise
+const myPromise = willReject => {
+  return new Promise((resolve, reject) => {
+    console.log('schedule...')
+    if (willReject) {
+      reject('Rejected!');
+    }
+    resolve('Resolved!');
+  });
+};
+// 先发出 true，然后是 false
+const source = of(true, false);
 
-const obc$ = interval(3000)
+// mergemap 预处理observerable 
 
-const myOb$ = zip(
-  oba$,
-  obb$,
-  obc$
-)
+const example = source.pipe(
+  mergeMap(val =>
+    fromPromise(myPromise(val)).pipe(
+      // 捕获并优雅地处理 reject 的结果
+      catchError(error => of(`Error: ${error}`))
+    )
+  )
+);
 
-myOb$.subscribe(val => console.log('subscribe --->', val))
+// 输出: 'Error: Rejected!', 'Resolved!'
+const subscribe = example.subscribe(val => console.log(val));
